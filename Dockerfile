@@ -11,26 +11,17 @@ COPY web ./web
 # Compilar o projeto
 RUN mvn clean package -DskipTests
 
-# STAGE 2: Criar imagem final com Tomcat
-FROM eclipse-temurin:25-jdk-jammy
+# STAGE 2: Usar imagem oficial do Tomcat
+FROM tomcat:10.1-jdk21
 
-# Instalar Tomcat
-ENV TOMCAT_VERSION=10.1.33
-RUN apt-get update && apt-get install -y wget && \
-    wget https://dlcdn.apache.org/tomcat/tomcat-10/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
-    tar xvf apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
-    mv apache-tomcat-${TOMCAT_VERSION} /opt/tomcat && \
-    rm apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
-    rm -rf /opt/tomcat/webapps/*
+# Remover aplicações padrão
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copiar o WAR compilado do stage anterior
-COPY --from=builder /app/target/blog-cristao.war /opt/tomcat/webapps/ROOT.war
+# Copiar o WAR compilado
+COPY --from=builder /app/target/blog-cristao.war /usr/local/tomcat/webapps/ROOT.war
 
-# Variável de ambiente
-ENV CATALINA_HOME=/opt/tomcat
-
-# Expõe porta
+# Expor porta
 EXPOSE 8080
 
-# Inicia Tomcat
-CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+# Iniciar Tomcat
+CMD ["catalina.sh", "run"]
