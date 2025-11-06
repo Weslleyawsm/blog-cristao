@@ -15,7 +15,7 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:25-jdk-jammy
 
 # Instalar Tomcat
-ENV TOMCAT_VERSION=10.1.28
+ENV TOMCAT_VERSION=10.1.33
 RUN apt-get update && apt-get install -y wget && \
     wget https://dlcdn.apache.org/tomcat/tomcat-10/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
     tar xvf apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
