@@ -1,4 +1,17 @@
-# Usar Java 25 + baixar Tomcat manualmente
+# STAGE 1: Compilar a aplicação com Maven
+FROM maven:3.9-eclipse-temurin-25 AS builder
+
+# Copiar arquivos do projeto
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+COPY lib ./lib
+COPY web ./web
+
+# Compilar o projeto
+RUN mvn clean package -DskipTests
+
+# STAGE 2: Criar imagem final com Tomcat
 FROM eclipse-temurin:25-jdk-jammy
 
 # Instalar Tomcat
@@ -10,8 +23,8 @@ RUN apt-get update && apt-get install -y wget && \
     rm apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
     rm -rf /opt/tomcat/webapps/*
 
-# Copia o WAR
-COPY target/blog-cristao.war /opt/tomcat/webapps/ROOT.war
+# Copiar o WAR compilado do stage anterior
+COPY --from=builder /app/target/blog-cristao.war /opt/tomcat/webapps/ROOT.war
 
 # Variável de ambiente
 ENV CATALINA_HOME=/opt/tomcat
