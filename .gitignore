@@ -1,0 +1,44 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# Build outputs
+target/
+*.class
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Eclipse
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+# Kotlin
+.kotlin

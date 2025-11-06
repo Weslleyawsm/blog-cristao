@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post - Blog Cristão</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-blue: #01070a;
+            --primary-gold: #897632;
+            --primary-green: #03453d;
+            --bg-light: #f8f9fc;
+            --bg-cream: #fefdfb;
+            --text-dark: #2c3e50;
+            --text-medium: #546e7a;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(15, 69, 113, 0.08);
+            --shadow-md: 0 4px 16px rgba(15, 69, 113, 0.12);
+            --shadow-lg: 0 8px 32px rgba(15, 69, 113, 0.16);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           HEADER
+        ======================================== */
+        .main-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a5a8a 100%);
+            color: var(--white);
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .logo-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        .btn-voltar {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-voltar:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(-3px);
+        }
+
+        /* ========================================
+           BARRA DE PROGRESSO
+        ======================================== */
+        .progress-bar {
+            position: fixed;
+            top: 90px;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: var(--primary-gold);
+            z-index: 999;
+            transition: width 0.1s;
+            box-shadow: 0 2px 4px rgba(137, 118, 50, 0.3);
+        }
+
+        /* ========================================
+           POST HEADER
+        ======================================== */
+        .post-header-section {
+            background: linear-gradient(135deg, rgba(15, 69, 113, 0.95), rgba(3, 69, 61, 0.9)),
+            url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?w=1600&q=80') center/cover;
+            color: var(--white);
+            padding: 80px 30px 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .post-header-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .post-categoria-badge {
+            display: inline-block;
+            background: var(--primary-gold);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        .post-titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5em;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .post-meta-header {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ========================================
+           BOTÕES DE COMPARTILHAMENTO
+        ======================================== */
+        .share-buttons {
+            max-width: 900px;
+            margin: 40px auto 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            border: none;
+            font-size: 1em;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .share-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* ========================================
+           CONTEÚDO DO POST
+        ======================================== */
+        .post-content-section {
+            max-width: 900px;
+            margin: -30px auto 60px;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 60px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .post-imagem-destaque {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .post-resumo {
+            font-size: 1.3em;
+            color: var(--primary-green);
+            font-style: italic;
+            font-weight: 500;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            padding-left: 25px;
+            border-left: 4px solid var(--primary-gold);
+        }
+
+        .post-conteudo {
+            font-family: 'Merriweather', serif;
+            font-size: 1.15em;
+            line-height: 1.9;
+            color: var(--text-dark);
+        }
+
+        .post-conteudo p {
+            margin-bottom: 25px;
+        }
+
+        .post-conteudo h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: var(--primary-blue);
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+
+        .post-conteudo h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            color: var(--primary-blue);
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+
+        .post-conteudo blockquote {
+            background: var(--bg-light);
+            border-left: 4px solid var(--primary-gold);
+            padding: 25px 30px;
+            margin: 35px 0;
+            border-radius: 8px;
+            font-style: italic;
+            font-size: 1.1em;
+            color: var(--text-medium);
+        }
+
+        .versiculo-box {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #055a4e 100%);
+            color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .versiculo-box p {
+            font-family: 'Merriweather', serif;
+            font-size: 1.3em;
+            font-style: italic;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .versiculo-box cite {
+            font-size: 1em;
+            opacity: 0.9;
+            font-style: normal;
+        }
+
+        /* ========================================
+           CONTROLES DE LEITURA
+        ======================================== */
+        .reading-controls {
+            position: fixed;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--white);
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.3em;
+            box-shadow: var(--shadow-md);
+        }
+
+        .control-btn:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        .control-btn.active {
+            background: var(--primary-gold);
+            border-color: var(--primary-gold);
+            color: var(--white);
+        }
+
+        /* ========================================
+           POSTS RELACIONADOS
+        ======================================== */
+        .related-posts-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 30px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            color: var(--primary-blue);
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .related-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid rgba(15, 69, 113, 0.08);
+        }
+
+        .related-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .related-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--primary-green) 0%, #055a4e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .related-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .related-content {
+            padding: 25px;
+        }
+
+        .related-categoria {
+            color: var(--primary-gold);
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .related-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4em;
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .related-card p {
+            color: var(--text-medium);
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* ========================================
+           LOADING
+        ======================================== */
+        .loading {
+            text-align: center;
+            padding: 100px 20px;
+            color: var(--primary-blue);
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid var(--bg-light);
+            border-top: 5px solid var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ========================================
+           SCROLL TO TOP
+        ======================================== */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gold);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .scroll-top.visible {
+            display: flex;
+        }
+
+        .scroll-top:hover {
+            background: #a08645;
+            transform: translateY(-5px);
+        }
+
+        /* ========================================
+           FOOTER
+        ======================================== */
+        .footer {
+            background: var(--text-dark);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 60px 30px 30px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-content p {
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.3em;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-gold);
+            transform: translateY(-3px);
+        }
+
+        /* ========================================
+           RESPONSIVIDADE
+        ======================================== */
+        @media (max-width: 1024px) {
+            .reading-controls {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .post-titulo {
+                font-size: 2.2em;
+            }
+
+            .post-content-section {
+                padding: 30px 25px;
+                margin: -20px 15px 40px;
+            }
+
+            .post-conteudo {
+                font-size: 1.05em;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .share-buttons {
+                flex-direction: column;
+                padding: 0 20px;
+            }
+
+            .share-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* ========================================
+           MODO DE LEITURA AUMENTADO
+        ======================================== */
+        body.font-large .post-conteudo {
+            font-size: 1.35em;
+        }
+
+        body.font-large .post-resumo {
+            font-size: 1.45em;
+        }
+    </style>
+</head>
+<body>
+<!-- BARRA DE PROGRESSO -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- HEADER -->
+<header class="main-header">
+    <div class="header-top">
+        <a href="../../blog_cristao/home" class="logo">
+            <div class="logo-icon">✝️</div>
+            <div class="logo-text">
+                <h1>Blog Cristão</h1>
+                <p>Fortalecendo sua Fé</p>
+            </div>
+        </a>
+
+        <a href="../../blog_cristao/home" class="btn-voltar">
+            ← Voltar ao Blog
+        </a>
+    </div>
+</header>
+
+<!-- CONTROLES DE LEITURA (Desktop) -->
+<div class="reading-controls">
+    <button class="control-btn" onclick="aumentarFonte()" title="Aumentar fonte">
+        A+
+    </button>
+    <button class="control-btn" onclick="diminuirFonte()" title="Diminuir fonte">
+        A-
+    </button>
+    <button class="control-btn" id="btnAudio" onclick="lerPost()" title="Ouvir post">
+        🔊
+    </button>
+</div>
+
+<!-- POST HEADER -->
+<section class="post-header-section" id="postHeader">
+    <div class="loading">
+        <div class="loading-spinner"></div>
+        <p>Carregando post...</p>
+    </div>
+</section>
+
+<!-- CONTEÚDO DO POST -->
+<section class="post-content-section" id="postContent">
+    <!-- Será preenchido dinamicamente -->
+</section>
+
+<!-- POSTS RELACIONADOS -->
+<section class="related-posts-section">
+    <h2 class="section-title">📖 Posts Relacionados</h2>
+    <div class="related-grid" id="relatedPosts">
+        <div class="loading">
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-content">
+        <p><strong>✝️ Blog Cristão</strong> - Fortalecendo sua fé através da palavra</p>
+        <div class="social-links">
+            <a href="#" title="Facebook">📘</a>
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="YouTube">📺</a>
+            <a href="#" title="Twitter">🐦</a>
+        </div>
+        <p style="margin-top: 30px; opacity: 0.6;">&copy; 2025 Blog Cristão - Todos os direitos reservados</p>
+    </div>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" onclick="scrollToTop()">↑</button>
+
+<script>
+    // ========================================
+    // CONFIGURAÇÃO
+    // ========================================
+    const API_URL = 'http://localhost:8080/blog_cristao/api/posts';
+    let postAtual = null;
+    let synth = window.speechSynthesis;
+    let utterance = null;
+    let lendoPost = false;
+
+    // ========================================
+    // INICIALIZAÇÃO
+    // ========================================
+    document.addEventListener('DOMContentLoaded', () => {
+        const postId = obterIdDoPost();
+
+        if (postId) {
+            carregarPost(postId);
+        } else {
+            mostrarErro('Post não encontrado');
+        }
+
+        setupProgressBar();
+        setupScrollTop();
+    });
+
+    // ========================================
+    // OBTER ID DO POST DA URL
+    // ========================================
+    function obterIdDoPost() {
+        // Método 1: Pegar da URL path (/blog_cristao/post/65)
+        const path = window.location.pathname;
+        console.log('📍 Path completo:', path);
+
+        // Divide a URL em partes
+        const parts = path.split('/').filter(p => p !== ''); // Remove strings vazias
+        console.log('📋 Partes da URL:', parts);
+
+        // Procura por "post" e pega o próximo elemento (o ID)
+        const postIndex = parts.indexOf('post');
+        console.log('🔍 Índice de "post":', postIndex);
+
+        if (postIndex !== -1 && postIndex + 1 < parts.length) {
+            const id = parts[postIndex + 1];
+            console.log('🆔 ID encontrado:', id);
+
+            // Valida se é número
+            if (!isNaN(id) && id !== '') {
+                console.log('✅ ID válido:', id);
+                return id;
+            }
+        }
+
+        // Método 2: Fallback para query parameter (?id=65)
+        const params = new URLSearchParams(window.location.search);
+        const queryId = params.get('id');
+        console.log('🔄 Tentando fallback query ID:', queryId);
+
+        if (queryId) {
+            console.log('✅ ID encontrado via query:', queryId);
+            return queryId;
+        }
+
+        console.log('❌ Nenhum ID encontrado!');
+        return null;
+    }
+
+    // ========================================
+    // CARREGAR POST DA API
+    // ========================================
+    async function carregarPost(id) {
+        try {
+            console.log('📖 Carregando post ID:', id);
+
+            const response = await fetch(`${API_URL}/${id}`);
+
+            if (!response.ok) {
+                throw new Error('Post não encontrado');
+            }
+
+            const post = await response.json();
+
+            // Se a API retornar array, pega o primeiro elemento
+            postAtual = Array.isArray(post) ? post[0] : post;
+
+            // Validar se encontrou o post
+            if (!postAtual) {
+                throw new Error('Post não encontrado');
+            }
+            postAtual = Array.isArray(post) ? post[0] : post;
+
+            console.log('✅ Post carregado:', postAtual);
+
+            renderizarPost(postAtual);
+            carregarPostsRelacionados(postAtual.categoria, postAtual.id);
+
+        } catch (error) {
+            console.error('❌ Erro ao carregar post:', error);
+            mostrarErro('Não foi possível carregar o post');
+        }
+    }
+
+    // ========================================
+    // RENDERIZAR POST
+    // ========================================
+    function renderizarPost(post) {
+        console.log('🎨 Renderizando post completo...');
+        console.log('📋 Dados do post:', post);
+        console.log('  - ID:', post.id);
+        console.log('  - Título:', post.titulo);
+        console.log('  - Categoria:', post.categoria);
+        console.log('  - Resumo:', post.resumo);
+        console.log('  - Conteúdo (tamanho):', post.conteudo ? post.conteudo.length : 0, 'caracteres');
+        console.log('  - Tempo de leitura:', post.tempo_leitura);
+        console.log('  - Imagem URL:', post.imagem_url);
+
+        // Header do post
+        document.getElementById('postHeader').innerHTML = `
+                <div class="post-header-content">
+                    <span class="post-categoria-badge">🏷️ ${post.categoria || 'Geral'}</span>
+                    <h1 class="post-titulo">${post.titulo || 'Sem título'}</h1>
+                    <div class="post-meta-header">
+                        <span class="meta-item">📅 Publicado hoje</span>
+                        ${post.tempo_leitura ? `<span class="meta-item">⏱️ ${post.tempo_leitura} min de leitura</span>` : ''}
+                        <span class="meta-item">🆔 Post #${post.id}</span>
+                    </div>
+                </div>
+
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="compartilharWhatsApp()">
+                        <span>📱</span> WhatsApp
+                    </button>
+                    <button class="share-btn" onclick="compartilharFacebook()">
+                        <span>📘</span> Facebook
+                    </button>
+                    <button class="share-btn" onclick="compartilharTwitter()">
+                        <span>🐦</span> Twitter
+                    </button>
+                    <button class="share-btn" onclick="copiarLink()">
+                        <span>🔗</span> Copiar Link
+                    </button>
+                </div>
+            `;
+
+        // Atualizar título da página
+        document.title = `${post.titulo} - Blog Cristão`;
+
+        // Conteúdo do post
+        const conteudoHTML = formatarConteudo(post.conteudo);
+
+        document.getElementById('postContent').innerHTML = `
+                ${post.imagem_url ? `
+                    <img src="${post.imagem_url}" alt="${post.titulo}" class="post-imagem-destaque">
+                ` : ''}
+
+                ${post.resumo ? `
+                    <div class="post-resumo">
+                        "${post.resumo}"
+                    </div>
+                ` : ''}
+
+                <div class="versiculo-box">
+                    <p>"Lâmpada para os meus pés é a tua palavra e luz, para o meu caminho."</p>
+                    <cite>— Salmos 119:105</cite>
+                </div>
+
+                <div class="post-conteudo">
+                    ${conteudoHTML}
+                </div>
+
+                <div class="versiculo-box">
+                    <p>"Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna."</p>
+                    <cite>— João 3:16</cite>
+                </div>
+
+                <div class="share-buttons" style="margin-top: 60px;">
+                    <button class="share-btn" onclick="compartilharWhatsApp()">
+                        <span>📱</span> Compartilhar no WhatsApp
+                    </button>
+                    <button class="share-btn" onclick="compartilharFacebook()">
+                        <span>📘</span> Compartilhar no Facebook
+                    </button>
+                </div>
+            `;
+
+        console.log('✅ Post renderizado com sucesso!');
+    }
+
+    // ========================================
+    // FORMATAR CONTEÚDO (adicionar parágrafos)
+    // ========================================
+    function formatarConteudo(conteudo) {
+        if (!conteudo) return '<p style="color: var(--text-light); font-style: italic;">Conteúdo não disponível.</p>';
+
+        console.log('📝 Formatando conteúdo:', conteudo);
+
+        // Converter o conteúdo em HTML formatado
+        let html = '';
+
+        // Primeiro, tentar dividir por quebras de linha duplas (\n\n ou \r\n\r\n)
+        let paragrafos = conteudo.split(/\n\n+|\r\n\r\n+/).filter(p => p.trim());
+
+        // Se não houver quebras duplas, dividir por quebras simples
+        if (paragrafos.length <= 1) {
+            paragrafos = conteudo.split(/\n|\r\n/).filter(p => p.trim());
+        }
+
+        // Se ainda for um único bloco, dividir por pontos finais seguidos de espaço
+        if (paragrafos.length <= 1 && conteudo.length > 200) {
+            // Dividir em sentenças e agrupar de 3 em 3
+            const sentencas = conteudo.match(/[^.!?]+[.!?]+/g) || [conteudo];
+            paragrafos = [];
+            for (let i = 0; i < sentencas.length; i += 3) {
+                const grupo = sentencas.slice(i, i + 3).join(' ').trim();
+                if (grupo) paragrafos.push(grupo);
+            }
+        }
+
+        console.log('📄 Parágrafos encontrados:', paragrafos.length);
+
+        // Processar cada parágrafo
+        paragrafos.forEach(p => {
+            const paragrafo = p.trim();
+
+            if (!paragrafo) return;
+
+            // Verificar se é um título (começa com # ou ##)
+            if (paragrafo.startsWith('## ')) {
+                html += `<h2>${paragrafo.replace('## ', '').trim()}</h2>`;
+            } else if (paragrafo.startsWith('# ')) {
+                html += `<h3>${paragrafo.replace('# ', '').trim()}</h3>`;
+            } else {
+                // Parágrafo normal
+                html += `<p>${paragrafo}</p>`;
+            }
+        });
+
+        // Se não conseguiu formatar nada, retornar o conteúdo bruto em um parágrafo
+        if (!html) {
+            html = `<p>${conteudo}</p>`;
+        }
+
+        console.log('✅ HTML formatado gerado');
+        return html;
+    }
+
+    // ========================================
+    // CARREGAR POSTS RELACIONADOS
+    // ========================================
+    async function carregarPostsRelacionados(categoria, idAtual) {
+        try {
+            const response = await fetch(API_URL);
+            const todosPosts = await response.json();
+
+            // Filtrar posts da mesma categoria, excluindo o atual
+            const relacionados = todosPosts
+                .filter(post => post.categoria === categoria && post.id !== idAtual)
+                .slice(0, 3);
+
+            renderizarPostsRelacionados(relacionados);
+
+        } catch (error) {
+            console.error('❌ Erro ao carregar posts relacionados:', error);
+            document.getElementById('relatedPosts').innerHTML =
+                '<p style="text-align: center; color: var(--text-light);">Não foi possível carregar posts relacionados</p>';
+        }
+    }
+
+    // ========================================
+    // RENDERIZAR POSTS RELACIONADOS
+    // ========================================
+    function renderizarPostsRelacionados(posts) {
+        const container = document.getElementById('relatedPosts');
+
+        if (posts.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: var(--text-light);">Nenhum post relacionado encontrado</p>';
+            return;
+        }
+
+        container.innerHTML = posts.map(post => `
+                <div class="related-card" onclick="abrirPost(${post.id})">
+                    <div class="related-image">
+                        ${post.imagem_url
+            ? `<img src="${post.imagem_url}" alt="${post.titulo}">`
+            : '✝️'
+        }
+                    </div>
+                    <div class="related-content">
+                        <span class="related-categoria">🏷️ ${post.categoria}</span>
+                        <h3>${post.titulo}</h3>
+                        <p>${post.resumo || ''}</p>
+                    </div>
+                </div>
+            `).join('');
+    }
+
+    // ========================================
+    // ABRIR OUTRO POST
+    // ========================================
+    function abrirPost(id) {
+        window.location.href = `blog-cristao-post.html?id=${id}`;
+    }
+
+    // ========================================
+    // COMPARTILHAMENTO
+    // ========================================
+    function compartilharWhatsApp() {
+        const texto = encodeURIComponent(`${postAtual.titulo} - ${window.location.href}`);
+        window.open(`https://wa.me/?text=${texto}`, '_blank');
+    }
+
+    function compartilharFacebook() {
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`, '_blank');
+    }
+
+    function compartilharTwitter() {
+        const texto = encodeURIComponent(postAtual.titulo);
+        window.open(`https://twitter.com/intent/tweet?text=${texto}&url=${window.location.href}`, '_blank');
+    }
+
+    function copiarLink() {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            alert('✅ Link copiado para a área de transferência!');
+        });
+    }
+
+    // ========================================
+    // CONTROLES DE LEITURA
+    // ========================================
+    let tamanhoFonte = 1;
+
+    function aumentarFonte() {
+        if (tamanhoFonte < 1.5) {
+            tamanhoFonte += 0.1;
+            aplicarTamanhoFonte();
+        }
+    }
+
+    function diminuirFonte() {
+        if (tamanhoFonte > 0.8) {
+            tamanhoFonte -= 0.1;
+            aplicarTamanhoFonte();
+        }
+    }
+
+    function aplicarTamanhoFonte() {
+        const conteudo = document.querySelector('.post-conteudo');
+        const resumo = document.querySelector('.post-resumo');
+
+        if (conteudo) {
+            conteudo.style.fontSize = `${1.15 * tamanhoFonte}em`;
+        }
+        if (resumo) {
+            resumo.style.fontSize = `${1.3 * tamanhoFonte}em`;
+        }
+    }
+
+    // ========================================
+    // LER POST EM VOZ ALTA
+    // ========================================
+    function lerPost() {
+        const btn = document.getElementById('btnAudio');
+
+        if (lendoPost) {
+            synth.cancel();
+            lendoPost = false;
+            btn.classList.remove('active');
+            btn.textContent = '🔊';
+            return;
+        }
+
+        if (!postAtual) return;
+
+        const texto = `${postAtual.titulo}. ${postAtual.resumo}. ${postAtual.conteudo}`;
+        utterance = new SpeechSynthesisUtterance(texto);
+        utterance.lang = 'pt-BR';
+        utterance.rate = 0.9;
+
+        utterance.onend = () => {
+            lendoPost = false;
+            btn.classList.remove('active');
+            btn.textContent = '🔊';
+        };
+
+        synth.speak(utterance);
+        lendoPost = true;
+        btn.classList.add('active');
+        btn.textContent = '⏸️';
+    }
+
+    // ========================================
+    // BARRA DE PROGRESSO
+    // ========================================
+    function setupProgressBar() {
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+    }
+
+    // ========================================
+    // SCROLL TO TOP
+    // ========================================
+    function setupScrollTop() {
+        const btn = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        });
+    }
+
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ========================================
+    // MOSTRAR ERRO
+    // ========================================
+    function mostrarErro(mensagem) {
+        document.getElementById('postHeader').innerHTML = `
+                <div style="text-align: center; padding: 100px 20px;">
+                    <div style="font-size: 80px; margin-bottom: 20px;">😔</div>
+                    <h2 style="font-size: 2em; margin-bottom: 15px;">${mensagem}</h2>
+                    <p style="margin-bottom: 30px;">O post que você procura não está disponível.</p>
+                    <a href="../../blog_cristao/home" class="btn-voltar" style="display: inline-flex;">
+                        ← Voltar ao Blog
+                    </a>
+                </div>
+            `;
+        document.getElementById('postContent').style.display = 'none';
+        document.querySelector('.related-posts-section').style.display = 'none';
+    }
+</script>
+</body>
+</html>

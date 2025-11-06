@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Cristão - Painel Administrativo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-blue: #020902;
+            --primary-gold: #326089;
+            --primary-green: #03453d;
+            --bg-light: #f8f9fc;
+            --text-dark: #2c3e50;
+            --text-light: #040e0e;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(15, 69, 113, 0.08);
+            --shadow-md: 0 4px 16px rgba(15, 69, 113, 0.12);
+            --shadow-lg: 0 8px 32px rgba(15, 69, 113, 0.16);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8f9fc 0%, #e9ecef 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ========================================
+           HEADER PROFISSIONAL
+        ======================================== */
+        .main-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a5a8a 100%);
+            color: var(--white);
+            padding: 0;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 L50 90 M10 50 L90 50" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></svg>');
+            opacity: 0.5;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-text p {
+            font-size: 1em;
+            opacity: 0.95;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ========================================
+           CONTAINER E LAYOUT
+        ======================================== */
+        .container {
+            max-width: 1400px;
+            margin: -30px auto 0;
+            padding: 0 30px 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* ========================================
+           CARDS E SEÇÕES
+        ======================================== */
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid rgba(15, 69, 113, 0.08);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--bg-light);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #a08645 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6em;
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           FORMULÁRIO ESTILIZADO
+        ======================================== */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .required {
+            color: #dc3545;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(15, 69, 113, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.6;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        /* ========================================
+           BOTÕES PROFISSIONAIS
+        ======================================== */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1a5a8a 100%);
+            color: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--text-light);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-edit {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #a08645 100%);
+            color: var(--white);
+            padding: 10px 20px;
+            font-size: 0.9em;
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: var(--white);
+            padding: 10px 20px;
+            font-size: 0.9em;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        /* ========================================
+           POSTS CARDS REDESENHADOS
+        ======================================== */
+        .posts-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .post-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid rgba(15, 69, 113, 0.08);
+            display: grid;
+            grid-template-columns: 200px 1fr;
+        }
+
+        .post-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .post-image {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #055a4e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-image-placeholder {
+            font-size: 60px;
+            opacity: 0.3;
+        }
+
+        .post-content-wrapper {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-header {
+            margin-bottom: 16px;
+        }
+
+        .post-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9em;
+            color: var(--text-light);
+            background: var(--bg-light);
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .meta-item strong {
+            color: var(--text-dark);
+        }
+
+        .post-resumo {
+            color: var(--primary-green);
+            font-style: italic;
+            margin-bottom: 12px;
+            font-size: 1.05em;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .post-conteudo {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 10px;
+            padding-top: 16px;
+            border-top: 1px solid var(--bg-light);
+        }
+
+        /* ========================================
+           MENSAGENS E ALERTAS
+        ======================================== */
+        .alert {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .alert-icon {
+            font-size: 24px;
+        }
+
+        /* ========================================
+           LOADING E ESTADOS VAZIOS
+        ======================================== */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--primary-blue);
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--bg-light);
+            border-top: 4px solid var(--primary-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-light);
+        }
+
+        .empty-state-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .empty-state p {
+            font-size: 1.1em;
+        }
+
+        /* ========================================
+           BADGE E TAGS
+        ======================================== */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #a08645 100%);
+            color: var(--white);
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ========================================
+           RESPONSIVIDADE
+        ======================================== */
+        @media (max-width: 1200px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .post-card {
+                grid-template-columns: 150px 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .header-stats {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .logo-text h1 {
+                font-size: 2em;
+            }
+
+            .container {
+                padding: 0 15px 30px;
+            }
+
+            .post-card {
+                grid-template-columns: 1fr;
+            }
+
+            .post-image {
+                min-height: 200px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .post-actions {
+                flex-direction: column;
+            }
+        }
+
+        /* ========================================
+           MELHORIAS DE ACESSIBILIDADE
+        ======================================== */
+        *:focus-visible {
+            outline: 3px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* ========================================
+           SCROLLBAR PERSONALIZADA
+        ======================================== */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-blue);
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1a5a8a;
+        }
+    </style>
+</head>
+<body>
+<!-- HEADER -->
+<header class="main-header">
+    <div class="header-content">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo-icon">✝️</div>
+                <div class="logo-text">
+                    <h1>Blog Cristão</h1>
+                    <p>Painel Administrativo de Conteúdo</p>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-value" id="total-posts">0</span>
+                    <span class="stat-label">Posts</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="total-categorias">0</span>
+                    <span class="stat-label">Categorias</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- CONTAINER PRINCIPAL -->
+<div class="container">
+    <!-- Mensagens de Feedback -->
+    <div id="mensagem"></div>
+
+    <!-- GRID DE CONTEÚDO -->
+    <div class="content-grid">
+        <!-- FORMULÁRIO -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">📝</div>
+                <h2 class="card-title" id="form-titulo">Criar Novo Post</h2>
+            </div>
+
+            <form id="form-post">
+                <input type="hidden" id="post-id">
+
+                <div class="form-group">
+                    <label for="titulo">
+                        Título <span class="required">*</span>
+                    </label>
+                    <input type="text" id="titulo" placeholder="Digite o título do post" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="resumo">
+                        Resumo <span class="required">*</span>
+                    </label>
+                    <textarea id="resumo" placeholder="Um breve resumo para atrair leitores" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="conteudo">
+                        Conteúdo <span class="required">*</span>
+                    </label>
+                    <textarea id="conteudo" placeholder="Escreva o conteúdo completo do post" required style="min-height: 200px;"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="categoria">
+                            Categoria <span class="required">*</span>
+                        </label>
+                        <input type="text" id="categoria" placeholder="Ex: Fé, Oração, Testemunho" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tempo_leitura">
+                            Tempo de Leitura (min)
+                        </label>
+                        <input type="number" id="tempo_leitura" placeholder="5" min="1">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="imagem_url">
+                        URL da Imagem
+                    </label>
+                    <input type="url" id="imagem_url" placeholder="https://exemplo.com/imagem.jpg">
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary" id="btn-submit">
+                        <span>➕ Criar Post</span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="btn-cancelar" style="display: none;">
+                        <span>❌ Cancelar</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- LISTA DE POSTS -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">📚</div>
+                <h2 class="card-title">Posts Publicados</h2>
+            </div>
+
+            <div id="lista-posts" class="posts-grid">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Carregando posts...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ========================================
+    // CONFIGURAÇÃO DA API
+    // ========================================
+    const API_URL = 'http://localhost:8080/blog_cristao/api/posts';
+
+    // ========================================
+    // ELEMENTOS DO DOM
+    // ========================================
+    const formPost = document.getElementById('form-post');
+    const listaPosts = document.getElementById('lista-posts');
+    const mensagemDiv = document.getElementById('mensagem');
+    const formTitulo = document.getElementById('form-titulo');
+    const btnSubmit = document.getElementById('btn-submit');
+    const btnCancelar = document.getElementById('btn-cancelar');
+    const totalPostsEl = document.getElementById('total-posts');
+    const totalCategoriasEl = document.getElementById('total-categorias');
+
+    // ========================================
+    // VARIÁVEIS DE CONTROLE
+    // ========================================
+    let modoEdicao = false;
+    let postIdEdicao = null;
+
+    // ========================================
+    // INICIALIZAÇÃO
+    // ========================================
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarPosts();
+
+        formPost.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (modoEdicao) {
+                editarPost();
+            } else {
+                criarPost();
+            }
+        });
+
+        btnCancelar.addEventListener('click', cancelarEdicao);
+    });
+
+    // ========================================
+    // FUNÇÃO: CARREGAR TODOS OS POSTS (GET)
+    // ========================================
+    async function carregarPosts() {
+        try {
+            listaPosts.innerHTML = `
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Carregando posts...</p>
+                </div>
+            `;
+
+            const response = await fetch(API_URL);
+
+            if (!response.ok) {
+                throw new Error('Erro ao carregar posts');
+            }
+
+            const posts = await response.json();
+
+            // Atualizar estatísticas
+            atualizarEstatisticas(posts);
+
+            if (posts.length === 0) {
+                listaPosts.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <h3>Nenhum post encontrado</h3>
+                        <p>Comece criando seu primeiro post usando o formulário ao lado!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Renderizar posts
+            listaPosts.innerHTML = '';
+            posts.forEach(post => {
+                listaPosts.innerHTML += criarCardPost(post);
+            });
+
+            // Adicionar event listeners aos botões após renderização
+            adicionarEventListenersBotoes();
+
+        } catch (error) {
+            console.error('Erro:', error);
+            listaPosts.innerHTML = `
+                <div class="alert alert-error">
+                    <span class="alert-icon">❌</span>
+                    <div>
+                        <strong>Erro ao carregar posts</strong><br>
+                        Verifique se o servidor está rodando e tente novamente.
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // ========================================
+    // FUNÇÃO: ADICIONAR EVENT LISTENERS AOS BOTÕES
+    // ========================================
+    function adicionarEventListenersBotoes() {
+        // Event delegation - captura cliques em todos os botões de ação
+        document.querySelectorAll('[data-action="editar"]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = parseInt(this.getAttribute('data-id'));
+                prepararEdicao(id);
+            });
+        });
+
+        document.querySelectorAll('[data-action="deletar"]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = parseInt(this.getAttribute('data-id'));
+                deletarPost(id);
+            });
+        });
+    }
+
+    // ========================================
+    // FUNÇÃO: ATUALIZAR ESTATÍSTICAS
+    // ========================================
+    function atualizarEstatisticas(posts) {
+        totalPostsEl.textContent = posts.length;
+
+        const categorias = new Set(posts.map(post => post.categoria));
+        totalCategoriasEl.textContent = categorias.size;
+    }
+
+    // ========================================
+    // FUNÇÃO: CRIAR CARD HTML DO POST
+    // ========================================
+    function criarCardPost(post) {
+        const titulo = (post.titulo || 'Sem título').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        const resumo = (post.resumo || 'Sem resumo').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        const conteudo = (post.conteudo || 'Sem conteúdo').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        const categoria = (post.categoria || 'Sem categoria').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        const tempoLeitura = post.tempo_leitura;
+        const imagemUrl = post.imagem_url;
+        const id = post.id || 0;
+
+        const conteudoTruncado = conteudo.length > 250
+            ? conteudo.substring(0, 250) + '...'
+            : conteudo;
+
+        return `
+            <div class="post-card" data-post-id="${id}">
+                <div class="post-image">
+                    ${imagemUrl
+            ? `<img src="${imagemUrl}" alt="${titulo}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'post-image-placeholder\\'>✝️</div>'">`
+            : '<div class="post-image-placeholder">✝️</div>'
+        }
+                </div>
+                <div class="post-content-wrapper">
+                    <div class="post-header">
+                        <h3 class="post-title">${titulo}</h3>
+                        <div class="post-meta">
+                            <span class="meta-item">
+                                <span>🏷️</span>
+                                <strong>${categoria}</strong>
+                            </span>
+                            ${tempoLeitura ? `
+                                <span class="meta-item">
+                                    <span>⏱️</span>
+                                    ${tempoLeitura} min
+                                </span>
+                            ` : ''}
+                            <span class="meta-item">
+                                <span>🆔</span>
+                                #${id}
+                            </span>
+                        </div>
+                    </div>
+
+                    <p class="post-resumo">"${resumo}"</p>
+                    <p class="post-conteudo">${conteudoTruncado}</p>
+
+                    <div class="post-actions">
+                        <button class="btn btn-edit" data-action="editar" data-id="${id}">
+                            <span>✏️ Editar</span>
+                        </button>
+                        <button class="btn btn-delete" data-action="deletar" data-id="${id}">
+                            <span>🗑️ Deletar</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // ========================================
+    // FUNÇÃO: CRIAR NOVO POST (POST)
+    // ========================================
+    async function criarPost() {
+        try {
+            console.log('📝 Criando novo post...');
+
+            const novoPost = {
+                titulo: document.getElementById('titulo').value.trim(),
+                resumo: document.getElementById('resumo').value.trim(),
+                conteudo: document.getElementById('conteudo').value.trim(),
+                categoria: document.getElementById('categoria').value.trim(),
+                tempo_leitura: parseInt(document.getElementById('tempo_leitura').value) || null,
+                imagem_url: document.getElementById('imagem_url').value.trim() || null
+            };
+
+            console.log('📦 Dados do novo post:', novoPost);
+
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(novoPost)
+            });
+
+            console.log('📡 Response status:', response.status);
+
+            if (!response.ok) {
+                const erro = await response.json();
+                throw new Error(erro.mensagem || 'Erro ao criar post');
+            }
+
+            console.log('✅ Post criado com sucesso');
+
+            mostrarMensagem('Post criado com sucesso!', 'success');
+            formPost.reset();
+            carregarPosts();
+
+        } catch (error) {
+            console.error('❌ Erro ao criar post:', error);
+            mostrarMensagem(error.message, 'error');
+        }
+    }
+
+    // ========================================
+    // FUNÇÃO: PREPARAR EDIÇÃO DO POST
+    // ========================================
+    async function prepararEdicao(id) {
+        try {
+            console.log('🔍 Preparando edição do post ID:', id);
+
+            const response = await fetch(`${API_URL}/${id}`);
+
+            if (!response.ok) {
+                throw new Error('Post não encontrado');
+            }
+
+            const post = await response.json();
+            const postData = Array.isArray(post) ? post[0] : post;
+
+            console.log('✅ Post carregado completo:', postData);
+            console.log('📋 Tipo de dados:', typeof postData);
+            console.log('📋 Chaves do objeto:', Object.keys(postData));
+
+            // Log de cada campo individualmente
+            Object.keys(postData).forEach(key => {
+                console.log(`  - ${key}: ${postData[key]}`);
+            });
+
+            // Limpar o formulário primeiro
+            formPost.reset();
+            document.getElementById('post-id').value = '';
+
+            // Aguardar um frame para garantir que o reset foi aplicado
+            await new Promise(resolve => setTimeout(resolve, 10));
+
+            // Preencher formulário com os dados corretos
+            // Usando acesso direto aos campos
+            const postId = document.getElementById('post-id');
+            const tituloInput = document.getElementById('titulo');
+            const resumoInput = document.getElementById('resumo');
+            const conteudoInput = document.getElementById('conteudo');
+            const categoriaInput = document.getElementById('categoria');
+            const tempoLeituraInput = document.getElementById('tempo_leitura');
+            const imagemUrlInput = document.getElementById('imagem_url');
+
+            // Verificar se os elementos existem
+            if (!postId || !tituloInput || !resumoInput || !conteudoInput || !categoriaInput) {
+                throw new Error('Elementos do formulário não encontrados!');
+            }
+
+            // Preencher cada campo individualmente
+            postId.value = String(postData.id || '');
+            tituloInput.value = String(postData.titulo || '');
+            resumoInput.value = String(postData.resumo || '');
+            conteudoInput.value = String(postData.conteudo || '');
+            categoriaInput.value = String(postData.categoria || '');
+            tempoLeituraInput.value = postData.tempo_leitura ? String(postData.tempo_leitura) : '';
+            imagemUrlInput.value = String(postData.imagem_url || '');
+
+            // Aguardar mais um frame
+            await new Promise(resolve => setTimeout(resolve, 10));
+
+            console.log('📝 Verificando campos preenchidos:');
+            console.log('  - ID input:', postId.value);
+            console.log('  - titulo input:', tituloInput.value);
+            console.log('  - resumo input:', resumoInput.value);
+            console.log('  - conteudo input:', conteudoInput.value);
+            console.log('  - categoria input:', categoriaInput.value);
+
+            // Remover destaque de qualquer card anteriormente selecionado
+            document.querySelectorAll('.post-card').forEach(card => {
+                card.style.borderColor = 'rgba(15, 69, 113, 0.08)';
+                card.style.boxShadow = '';
+            });
+
+            // Destacar o card sendo editado
+            const cardAtual = document.querySelector(`[data-post-id="${id}"]`);
+            if (cardAtual) {
+                cardAtual.style.borderColor = '#897632';
+                cardAtual.style.boxShadow = '0 0 0 3px rgba(137, 118, 50, 0.2)';
+            }
+
+            // Atualizar modo de edição
+            modoEdicao = true;
+            postIdEdicao = id;
+
+            // Atualizar interface
+            const cardIconForm = document.querySelector('.card-header .card-icon');
+            if (cardIconForm) {
+                cardIconForm.textContent = '✏️';
+            }
+
+            formTitulo.textContent = 'Editar Post';
+            btnSubmit.innerHTML = '<span>💾 Salvar Alterações</span>';
+            btnCancelar.style.display = 'inline-flex';
+
+            // Scroll suave para o formulário
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 100);
+
+            console.log('✅ Modo de edição ativado para post ID:', postIdEdicao);
+            console.log('✅ Modo edição ativo?', modoEdicao);
+
+        } catch (error) {
+            console.error('❌ Erro ao preparar edição:', error);
+            mostrarMensagem('Erro: ' + error.message, 'error');
+        }
+    }
+
+    // ========================================
+    // FUNÇÃO: EDITAR POST (PUT)
+    // ========================================
+    async function editarPost() {
+        try {
+            console.log('💾 Salvando edições do post ID:', postIdEdicao);
+
+            const postAtualizado = {
+                id: parseInt(document.getElementById('post-id').value),
+                titulo: document.getElementById('titulo').value,
+                resumo: document.getElementById('resumo').value,
+                conteudo: document.getElementById('conteudo').value,
+                categoria: document.getElementById('categoria').value,
+                tempo_leitura: parseInt(document.getElementById('tempo_leitura').value) || null,
+                imagem_url: document.getElementById('imagem_url').value || null
+            };
+
+            console.log('📦 Dados enviados:', postAtualizado);
+
+            const response = await fetch(`${API_URL}/${postIdEdicao}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postAtualizado)
+            });
+
+            console.log('📡 Response status:', response.status);
+
+            if (!response.ok) {
+                const erro = await response.json();
+                throw new Error(erro.mensagem || 'Erro ao editar post');
+            }
+
+            console.log('✅ Post atualizado com sucesso');
+
+            mostrarMensagem('Post atualizado com sucesso!', 'success');
+            cancelarEdicao();
+            carregarPosts();
+
+        } catch (error) {
+            console.error('❌ Erro ao editar post:', error);
+            mostrarMensagem(error.message, 'error');
+        }
+    }
+
+    // ========================================
+    // FUNÇÃO: DELETAR POST (DELETE)
+    // ========================================
+    async function deletarPost(id) {
+        console.log('🗑️ Solicitando exclusão do post ID:', id);
+
+        if (!confirm('Tem certeza que deseja deletar este post? Esta ação não pode ser desfeita.')) {
+            console.log('❌ Exclusão cancelada pelo usuário');
+            return;
+        }
+
+        try {
+            console.log('🔄 Enviando requisição DELETE...');
+
+            const response = await fetch(`${API_URL}/${id}`, {
+                method: 'DELETE'
+            });
+
+            console.log('📡 Response status:', response.status);
+
+            if (!response.ok) {
+                throw new Error('Erro ao deletar post');
+            }
+
+            console.log('✅ Post deletado com sucesso');
+
+            mostrarMensagem('Post deletado com sucesso!', 'success');
+            carregarPosts();
+
+        } catch (error) {
+            console.error('❌ Erro ao deletar post:', error);
+            mostrarMensagem(error.message, 'error');
+        }
+    }
+
+    // ========================================
+    // FUNÇÃO: CANCELAR EDIÇÃO
+    // ========================================
+    function cancelarEdicao() {
+        console.log('❌ Cancelando edição');
+
+        // Remover destaque de todos os cards
+        document.querySelectorAll('.post-card').forEach(card => {
+            card.style.borderColor = 'rgba(15, 69, 113, 0.08)';
+            card.style.boxShadow = '';
+        });
+
+        // Resetar variáveis de controle
+        modoEdicao = false;
+        postIdEdicao = null;
+
+        // Limpar formulário
+        formPost.reset();
+
+        // Restaurar interface
+        const cardIconForm = document.querySelector('.card-header .card-icon');
+        if (cardIconForm) {
+            cardIconForm.textContent = '📝';
+        }
+
+        formTitulo.textContent = 'Criar Novo Post';
+        btnSubmit.innerHTML = '<span>➕ Criar Post</span>';
+        btnCancelar.style.display = 'none';
+
+        console.log('✅ Modo de edição cancelado');
+    }
+
+    // ========================================
+    // FUNÇÃO: MOSTRAR MENSAGENS
+    // ========================================
+    function mostrarMensagem(texto, tipo) {
+        const icon = tipo === 'success' ? '✅' : '❌';
+        const classe = tipo === 'success' ? 'alert-success' : 'alert-error';
+
+        mensagemDiv.innerHTML = `
+            <div class="alert ${classe}">
+                <span class="alert-icon">${icon}</span>
+                <div><strong>${texto}</strong></div>
+            </div>
+        `;
+
+        // Scroll suave para a mensagem
+        mensagemDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        // Remover mensagem após 5 segundos
+        setTimeout(() => {
+            mensagemDiv.innerHTML = '';
+        }, 5000);
+    }
+</script>
+</body>
+</html>
