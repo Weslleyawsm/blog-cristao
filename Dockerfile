@@ -1,27 +1,37 @@
-# STAGE 1: Compilar a aplicação com Maven
+# STAGE 1: Compilar com Java 25
 FROM maven:3.9-eclipse-temurin-25 AS builder
 
-# Copiar arquivos do projeto
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 COPY lib ./lib
 COPY web ./web
 
-# Compilar o projeto
 RUN mvn clean package -DskipTests
 
-# STAGE 2: Usar imagem oficial do Tomcat
-FROM tomcat:10.1-jdk21
+# STAGE 2: Usar Java 25 + Tomcat
+FROM eclipse-temurin:25-jdk-jammy
 
-# Remover aplicações padrão
-RUN rm -rf /usr/local/tomcat/webapps/*
+# Variáveis
+ENV TOMCAT_VERSION=10.1.33
+ENV CATALINA_HOME=/opt/tomcat
 
-# Copiar o WAR compilado
-COPY --from=builder /app/target/blog-cristao.war /usr/local/tomcat/webapps/ROOT.war
+# Instalar Tomcat manualmente
+RUN apt-get update && \
+    apt-get install -y wget && \
+    wget https://archive.apache.org/dist/tomcat/tomcat-10/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
+    tar xvf apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
+    mv apache-tomcat-${TOMCAT_VERSION} ${CATALINA_HOME} && \
+    rm apache-tomcat-${TOMCAT_VERSION}.tar.gz && \
+    rm -rf ${CATALINA_HOME}/webapps/* && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copiar WAR
+COPY --from=builder /app/target/blog-cristao.war ${CATALINA_HOME}/webapps/ROOT.war
 
 # Expor porta
 EXPOSE 8080
 
 # Iniciar Tomcat
-CMD ["catalina.sh", "run"]
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
